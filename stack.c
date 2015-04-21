@@ -1,10 +1,4 @@
-#include "stack.h"
-
-struct stack
-{
-	size_t top;
-	int data[MAX_SIZE];
-};
+#include "ac.h"
 
 int stack_push(Stack* s, int data)
 {
@@ -18,7 +12,7 @@ int stack_push(Stack* s, int data)
 int stack_pop(Stack* s)
 {
 	if (0 == s->top)
-		return NULL;
+		return -1;
 	s->top--;
 	return s->data[s->top];
 }

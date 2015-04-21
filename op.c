@@ -1,8 +1,8 @@
-#include "op.h"
+#include "ac.h"
 #include "string.h"
 #include "stdio.h"
 
-size_t match_op(char* str)
+size_t match_op(const char* str)
 {
 	size_t op = -1;
 	char* command[] = {
@@ -30,10 +30,11 @@ size_t match_op(char* str)
 void exec_op_code(Stack* s, int op, int n)
 {
 	int output = 0;
+	int a, b;
 	switch (op)
 	{
 		case OPCODE_LEN:
-			output = stack_len(s);
+			output = (int)stack_len(s);
 			break;
 		case OPCODE_TOP:
 			output = stack_top(s);
@@ -45,37 +46,37 @@ void exec_op_code(Stack* s, int op, int n)
 			output = stack_push(s, n);
 			break;
 		case OPCODE_ADD:
-			int a = stack_pop(s);
-			int b = stack_pop(s);
+			a = stack_pop(s);
+			b = stack_pop(s);
 			output = a + b;
-			stack_push(output);
+			stack_push(s, output);
 			break;
 		case OPCODE_SUB:
-			int a = stack_pop(s);
-			int b = stack_pop(s);
+			a = stack_pop(s);
+			b = stack_pop(s);
 			output = a - b;
 			stack_push(s, output);
 			break;
 		case OPCODE_MUL:
-			int a = stack_pop(s);
-			int b = stack_pop(s);
+			a = stack_pop(s);
+			b = stack_pop(s);
 			output = a * b;
 			stack_push(s, output);
 			break;
 		case OPCODE_DIV:
-			int a = stack_pop(s);
-			int b = stack_pop(s);
+			a = stack_pop(s);
+			b = stack_pop(s);
 			output = a / b;
 			stack_push(s, output);
 			break;
 		case OPCODE_MOD:
-			int a = stack_pop(s);
-			int b = stack_pop(s);
+			a = stack_pop(s);
+			b = stack_pop(s);
 			output = a % b;
 			stack_push(s, output);
 			break;
 		case OPCODE_EXIT:
-			exit(0);
+			exit(1);
 			break;
 		default:
 			puts("Unknown Command");
